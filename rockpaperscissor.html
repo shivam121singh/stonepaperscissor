@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        body{
+            background-color:burlywood
+        }
+        .head{
+            height:100px;
+            width:100vw;
+            background-color:rgb(52, 151, 154);
+            display:flex;
+justify-content:center;
+align-items:center;
+        }
+        .choices{
+            margin-top:130px;
+display:flex;
+gap:50px;
+justify-content:center;
+align-items:center;
+        }
+       #paper{
+        border-radius:50%;
+object-fit:cover;
+border-radius:50%;
+
+       }
+       #paper:hover{
+        /* opacity:0.5; */
+        cursor:pointer;
+                 outline: 10px solid black;
+
+       }
+       .info{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin-top:50px;
+        gap:180px;
+        font-size:50px;
+       }
+       #score{
+font-size:100px;
+       }
+       #msg{
+       
+        background-color:rgb(0, 255, 8);
+        margin-top:20px;
+        display:inline;
+        justify-content:center ;
+        align-items:center ;
+        font-size:30px;
+        border-radius:5px;
+       }
+       .msgcont{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+       }
+       .reset{
+       margin-left:820px;
+       margin-top:50px;
+       font-size:30px;
+       border-radius:6px;
+       height:40px;
+       background-color:brown
+       }
+
+    </style>
+</head>
+<body>
+<div class="head"><h1>🎮ROCK PAPER SCISSOR GAME </h1> </div>
+<div class="choices">
+    <div class="choice1" id="rock">
+        <img src="rock.jpg" alt="" id="paper">
+    </div>
+    <div class="choice1" id="paper">
+        <img src="paper.jpg" alt="" id="paper">
+    </div><div class="choice1" id="scissor">
+        <img src="scissor.jpg" alt="" id="paper">
+    </div>
+</div>
+<div class="info">
+    <div class="you">
+        <p id="uscore">0</p>
+        <p>YOU</p>
+    </div>
+    <div class="computer">
+        <p id="cscore">0</p>
+        <p>COMP</p>
+    </div>
+</div>
+<div class="msgcont">
+    <p id="msg">play your game</p>
+</div>
+<button class="reset">
+reset
+</button>
+<script>
+  let reset=document.querySelector(".reset");
+  reset.addEventListener("click",()=>{
+          uscores.innerText="0";
+            cscores.innerText="0";
+            userscore = 0;
+            cmpscore = 0;
+
+  })
+    let msg=document.querySelector("#msg");
+    let uscores=document.querySelector("#uscore");
+     let cscores=document.querySelector("#cscore");
+let userscore = 0;
+let cmpscore = 0;
+const choices = document.querySelectorAll(".choice1");
+
+// for all the choice1
+const compchoice = () => {
+  const option = ["rock", "paper", "scissor"];
+  const randidx = Math.floor(Math.random() * 3);
+  return option[randidx];
+};
+
+const drawgame = () => {
+  console.log("game is draw");
+  msg.innerText=" 😐game draw";
+};
+
+const playgame = (userchoice) => {
+  console.log("user choice is:", userchoice);
+  const cmpchoice = compchoice(); 
+  console.log("computer choice is:", cmpchoice);
+
+  if (userchoice === cmpchoice) {
+    drawgame();
+  } else {
+    let userwin = true;
+
+    if (userchoice === "rock") {
+      userwin = cmpchoice === "paper" ? false : true;
+    } 
+    else if (userchoice === "paper") {
+      userwin = cmpchoice === "scissor" ? false : true;  
+    } 
+    else if (userchoice === "scissor") {                   
+      userwin = cmpchoice === "rock" ? false : true;
+    }
+
+    if (userwin) {
+        console.log("user win");
+      msg.innerText="🎉you win ";
+      userscore++;
+      uscores.innerText=userscore;
+    } else {
+      console.log("computer win");
+      msg.innerText="😢you lose try again!";
+      cmpscore++;
+            cscores.innerText=cmpscore;
+
+    }
+  }
+};
+
+choices.forEach((choice1) => {
+  choice1.addEventListener("click", () => {
+    let chooseid = choice1.getAttribute("id");
+    console.log("clicked", chooseid);
+    playgame(chooseid); // ✅ fixed — pass id, not element
+  });
+});
+</script>
+
+</body>
+</html>
